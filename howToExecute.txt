@@ -1,0 +1,6 @@
+before everything:
+    eval $(opam config env)
+then:
+    dune build folder/something.exe
+and:
+    dune exec folder/something.exe
