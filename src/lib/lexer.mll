@@ -16,6 +16,13 @@ rule token = parse
   | spaces            { token lexbuf }
   | '\n'              { L.new_line lexbuf; token lexbuf }
   | integer as lxm    { LITINT (int_of_string lxm) }
+  | '+'               { PLUS }
+  | '('               { LPAREN }
+  | ')'               { RPAREN }
+  | ','               { COMMA }
+  | '='               { EQ }
+  | '<'               { LT }
+
 
   (* add other lexical rules *)
 
