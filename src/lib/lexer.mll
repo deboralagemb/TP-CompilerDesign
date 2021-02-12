@@ -17,6 +17,13 @@ rule token = parse
   | '\n'              { L.new_line lexbuf; token lexbuf }
   | integer as lxm    { LITINT (int_of_string lxm) }
   | '+'               { PLUS }
+  | "let"             { LET }
+  | "in"              { IN }
+  | "if"              { IF }
+  | "then"            { THEN }
+  | "else"            { ELSE }
+  (* //%token INT
+//%token BOOL*)
   | '('               { LPAREN }
   | ')'               { RPAREN }
   | ','               { COMMA }
