@@ -3,8 +3,8 @@
 %token                 EOF
 %token <int>           LITINT
 %token                 PLUS
-//%token INT
-//%token BOOL
+%token                 INT
+%token                 BOOL
 %token                 LET
 %token                 IN
 %token                 IF
@@ -15,5 +15,6 @@
 %token                 RPAREN
 %token                 COMMA
 %token                 EQ
+%token <Symbol.symbol> ID
 
 %%
