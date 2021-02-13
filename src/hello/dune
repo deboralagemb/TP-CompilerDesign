@@ -1,4 +1,0 @@
-(executable
-  (name hello)
-  (flags
-    (:standard -warn-error -A)))

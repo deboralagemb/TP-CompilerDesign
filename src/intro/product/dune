@@ -1,4 +1,0 @@
-(executable
-  (name product)
-  (flags
-    (:standard -warn-error -A)))
