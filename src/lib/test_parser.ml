@@ -111,3 +111,7 @@ check "int f(int x) = x";
               │    x    │
               │Absyn.Int│
               ╰─────────╯ |}] 
+
+  (* let in expression *)
+  (* check "int f(int x) = let var = 3 in var + 3" *)
+  (* NOT EXPECTED RESULT YET - restudy case and check if example is right on parser.mly later *)
