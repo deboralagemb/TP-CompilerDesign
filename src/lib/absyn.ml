@@ -15,6 +15,7 @@ type exp =
   | IntExp of int
   | OpExp of operator * lexp * lexp
   | ConditionalExp of lexp * lexp * lexp
+  | IdExp of symbol
   [@@deriving show]
 
 and fundec = (type_ * symbol) * (type_ * symbol) list * lexp

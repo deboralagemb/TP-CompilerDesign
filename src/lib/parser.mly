@@ -31,6 +31,7 @@ program:
 exp:
 | x=LITINT                          { $loc , Absyn.IntExp x }                 // regra 9
 | x=exp op=operator y=exp           { $loc , Absyn.OpExp (op, x, y) }         // regras 11 e 12
+| x=ID                              { $loc , Absyn.IdExp x }                  // regra 10
 | IF x=exp THEN y=exp ELSE z=exp    { $loc , Absyn.ConditionalExp (x, y, z) } // regra 13
 
 %inline operator:
