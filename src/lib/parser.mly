@@ -17,16 +17,16 @@
 %token                 LET
 %token                 IN
 
-%start <Absyn.lfundec> program
+%start <Absyn.lfundecs> program
 
 %nonassoc LT
 %left PLUS
 %left IF
 
 %%
-
+(* WORKING HERE *)
 program:
-| x=fundec EOF { x }                                                          // regra 1
+| y=fundec x=list(fundec) EOF { (y,x) }                                                          // regra 1
 
 exps:
 | x=separated_nonempty_list(COMMA, exp) { x }                                 // regras 16 e 17

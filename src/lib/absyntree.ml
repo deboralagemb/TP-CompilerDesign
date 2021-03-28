@@ -50,4 +50,7 @@ and tree_of_lexp (_, x) = tree_of_exp x
 
 and tree_of_lfundec (_, x) = tree_of_fundec x
 
+(* WORKING HERE *)
+and tree_of_lfundecs (func, funcs) = List.map tree_of_fundec (func;funcs)
+
 and tree_of_lsymbol (_, x) = tree_of_symbol x

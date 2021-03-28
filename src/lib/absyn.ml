@@ -31,5 +31,9 @@ and type_ =
 and lexp = exp loc
   [@@deriving show]
 
+(* WORKING HERE *)
+and lfundecs = lfundec * lfundec list
+  [@@deriving show]
+
 and lfundec = fundec loc
   [@@deriving show]
