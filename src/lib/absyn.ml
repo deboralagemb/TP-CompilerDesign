@@ -16,7 +16,7 @@ type exp =
   | OpExp of operator * lexp * lexp
   | ConditionalExp of lexp * lexp * lexp
   | IdExp of symbol
-  | FunctionsExp of symbol * lexp list 
+  | FunctionsExp of lexp list 
   | DeclarationExp of symbol * lexp * lexp 
   [@@deriving show]
 
