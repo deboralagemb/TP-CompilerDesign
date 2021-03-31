@@ -51,3 +51,36 @@ typeid:
 
 typeids:
 | x=separated_nonempty_list(COMMA, typeid) { x }                              // regra 7 e 8
+
+
+(*
+
+%%
+
+program: x=nonempty_list(f) EOF       { $loc , x }  // regra 1 
+
+f: x=typeId LPAREN y=typeIds RPAREN EQ z=d { $loc , (x, y, z) }  // regra 4
+
+typeIds: x=separated_nonempty_list(COMMA, typeId) { x }  // regra 7 e 8
+
+typeId:
+| INT x=ID { (Absyn.Int, x) }        // regra 5
+| BOOL x=ID  { (Absyn.Bool, x) }     // regra 6
+
+w: ID LPAREN y=e1 RPAREN  { $loc , Absyn.FunctionsExp y }      // regra 14
+
+e1: x=separated_nonempty_list(COMMA, d) { x }  // regras 16 e 17
+
+d: IF x=u THEN y=u ELSE z=u { $loc , Absyn.ConditionalExp (x, y, z) } // regra 13
+
+u: LET x=ID EQ y=x IN z=x { $loc , Absyn.DeclarationExp (x, y, z) } // regra 15
+
+x: x=x LT y=y  { $loc , Absyn.OpExp (Absyn.LT, x, y) } // regra 11 
+
+y: x=y PLUS y=z { $loc , Absyn.OpExp (Absyn.Plus, x, y) } // regra 12
+
+z:
+| x=LITINT   { $loc , Absyn.IntExp x }  // regra 9
+| x=ID { $loc , Absyn.IdExp x }  // regra 10
+
+*)
