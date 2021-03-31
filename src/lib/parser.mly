@@ -24,9 +24,8 @@
 %left IF
 
 %%
-(* WORKING HERE *)
 program:
- | x=fundec y=list(fundec) EOF       { $loc , (x,y) }                         // regra 1 
+| x=nonempty_list(fundec) EOF       { $loc , x }                              // regra 1 
 
 exps:
 | x=separated_nonempty_list(COMMA, exp) { x }                                 // regras 16 e 17
