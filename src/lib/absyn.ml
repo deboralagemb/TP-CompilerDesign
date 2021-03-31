@@ -32,7 +32,8 @@ and lexp = exp loc
   [@@deriving show]
 
 (* WORKING HERE *)
-and lfundecs = lfundec * lfundec list
+
+and lfundecs = (lfundec * lfundec list) loc
   [@@deriving show]
 
 and lfundec = fundec loc

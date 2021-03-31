@@ -26,7 +26,7 @@
 %%
 (* WORKING HERE *)
 program:
-| y=fundec x=list(fundec) EOF { (y,x) }                                                          // regra 1
+ | x=fundec y=list(fundec) EOF       { $loc , (x,y) }                         // regra 1 
 
 exps:
 | x=separated_nonempty_list(COMMA, exp) { x }                                 // regras 16 e 17
