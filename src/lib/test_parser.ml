@@ -127,8 +127,9 @@ check "int f(int x) = x";
               │Absyn.Int│
               ╰─────────╯ |}];
 
-  (* let in expression *)
-  (* check "int f(int x) = let var = 3 in var + 3" *)
+(* let in expression *)
+check "int f(int x) = let var = 3 in var + 3";
+[%expect{||}];
   (* NOT EXPECTED RESULT YET - restudy case and check if example is right on parser.mly later *)
 
 (* id list of expressions - functions call*)
