@@ -35,7 +35,7 @@ exp:
 | x=exp op=operator y=exp           { $loc , Absyn.OpExp (op, x, y) }         // regras 11 e 12
 | x=ID                              { $loc , Absyn.IdExp x }                  // regra 10
 | IF x=exp THEN y=exp ELSE z=exp    { $loc , Absyn.ConditionalExp (x, y, z) } // regra 13
-| ID LPAREN y=exps RPAREN           { $loc , Absyn.FunctionsExp y }           // regra 14
+| x=ID LPAREN y=exps RPAREN         { $loc , Absyn.FunctionsExp (x,y) }       // regra 14
 | LET x=ID EQ y=exp IN z=exp        { $loc , Absyn.DeclarationExp (x, y, z) } // regra 15
 
 %inline operator:
