@@ -39,7 +39,7 @@ exp:
 | LET x=ID EQ y=exp IN z=exp        { $loc , Absyn.DeclarationExp (x, y, z) } // regra 15
 
 %inline operator:
-| PLUS { Absyn.Plus }                                               
+| PLUS { Absyn.Plus }
 | LT   { Absyn.LT }
 
 fundec:
