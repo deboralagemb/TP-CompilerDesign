@@ -192,6 +192,9 @@ check "int f(int x) = let var = 3 in var + 3";
                                      │IdExp var│ │IntExp 3│
                                      ╰─────────╯ ╰────────╯ |}];
 
+check "int f(int x) = let var = 3 in var + let var = 3 in var";
+[%expect{||}];
+
 check "int f(int x) = let var = 3 in var < 3";
 [%expect{|
                           ╭───────╮
