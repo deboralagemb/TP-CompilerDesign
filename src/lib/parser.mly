@@ -1,5 +1,6 @@
 // parser.mly
 
+
 %token                 EOF
 %token <int>           LITINT
 %token <Symbol.symbol> ID
