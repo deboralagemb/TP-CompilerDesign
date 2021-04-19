@@ -11,16 +11,23 @@ let rec check_exp (exp, vtable, ftable) =
   | (_, Absyn.VarExp x) -> 
     (match Symbol.look x vtable with
     | Some var -> var
-    | None -> Error.error (Location.loc exp) "debug1")
+    | None -> Error.error (Location.loc exp) "debug var(id)")
   | (_, Absyn.OpExp (Absyn.Plus, left, right)) ->
     let t1 = check_exp (left, vtable, ftable) in
     let t2 = check_exp (right, vtable, ftable) in
     if t1 == Absyn.Int && t2 == Absyn.Int
+      then Absyn.Int
+    else 
+      Error.error (Location.loc exp) "debug plus"
+      Absyn.Int
+  | (_, Absyn.OpExp (Absyn.LT, left, right)) -> 
+    let t1 = check_exp (left, vtable, ftable) in
+    let t2 = check_exp (right, vtable, ftable) in
+    if t1 == t2
       then Absyn.Bool
     else 
-      Error.error (Location.loc exp) "debug2"
+      Error.error (Location.loc exp) "debug lt"
       Absyn.Bool
-  | (_, Absyn.OpExp (Absyn.LT, y, z)) -> Absyn.Int
   | (_, Absyn.IfExp (x, y, z)) -> Absyn.Int
   | (_, Absyn.CallExp (x, y)) -> Absyn.Int
   | (_, Absyn.LetExp (x, y, z)) -> Absyn.Int
