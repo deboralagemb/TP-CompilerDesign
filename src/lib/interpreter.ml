@@ -122,3 +122,19 @@ let get_fun (fun') =
                                let types = get_types (type_ids) in
                                (f, types, t0)
 
+let rec get_funs (funs) =
+  match funs with
+  | [fun'] -> let (f, _, t) = get_fun(fun') in
+              Symbol.enter f t Symbol.empty
+  | fun' :: tail -> let (f, _, t) = get_fun(fun') in
+                    let ftable = get_funs(tail) in
+                    match Symbol.look f ftable with
+                    | None -> Symbol.enter f t ftable 
+                    | Some ftable -> Error.error (Location.loc f) "debug funs" ftable
+
+
+(* let check_program (program) =
+  let ftable = get_funs(program) in
+  let _ = check_funs(program, ftable) in
+
+*)
