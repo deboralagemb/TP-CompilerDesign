@@ -37,14 +37,18 @@ let rec check_exp (exp, vtable, ftable) =
     else 
       Error.error (Location.loc exp) "debug if"
       t2
+  | (_, Absyn.CallExp (x, y)) -> Absyn.Int
   | (_, Absyn.LetExp (id, id_exp, in_exp)) -> 
     let t1 = check_exp(id_exp, vtable, ftable) in
     let vtable' = Symbol.enter id t1 vtable in
       check_exp (in_exp, vtable', ftable)
-  | (_, Absyn.CallExp (x, y)) -> Absyn.Int
   
-
-
+and check_exps (exps, vtable, ftable) =
+  match exps with
+  | [exp] -> [check_exp (exp, vtable, ftable)]
+  | exp :: tail -> check_exp (exp, vtable, ftable) 
+      :: check_exps (tail, vtable, ftable)
+  | [] -> []
 
 let get_type_id (type', id) =
   match type' with
