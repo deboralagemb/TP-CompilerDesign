@@ -28,7 +28,15 @@ let rec check_exp (exp, vtable, ftable) =
     else 
       Error.error (Location.loc exp) "debug lt"
       Absyn.Bool
-  | (_, Absyn.IfExp (x, y, z)) -> Absyn.Int
+  | (_, Absyn.IfExp (if', then', else')) -> 
+    let t1 = check_exp (if', vtable, ftable) in
+    let t2 = check_exp (then', vtable, ftable) in
+    let t3 = check_exp (else', vtable, ftable) in
+    if t1 == Absyn.Bool && t2 == t3
+      then t2
+    else 
+      Error.error (Location.loc exp) "debug if"
+      t2
   | (_, Absyn.CallExp (x, y)) -> Absyn.Int
   | (_, Absyn.LetExp (x, y, z)) -> Absyn.Int
   
