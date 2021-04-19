@@ -99,5 +99,26 @@ and check_type_ids (typeids, exp) =
                       | Some _ -> Error.error (Location.loc exp) "verifiy this exp <<-"
                       | None -> Symbol.enter x t vtable
 
-  (* let interpreter (_, y) = 
-  call_fun y *)
+
+(* type checking a program *)
+
+let rec check_funs (funs, ftable) =
+  match funs with
+  | [fun'] -> check_fun(fun', ftable)
+  | fun' :: tail -> check_fun(fun', ftable);
+                    check_funs(tail, ftable)
+
+let rec get_types (type_ids) =
+  match type_ids with
+  | [type_id] -> let (_, t) = get_type_id (type_id) in
+                 [t]
+  | type_id :: tail -> let (_, t) = get_type_id (type_id) in
+                       let tail_ = get_types (tail) in
+                       t :: tail_
+
+let get_fun (fun') =
+  match fun' with
+  | (typeId, type_ids, exp) -> let (f, t0) = get_type_id (typeId) in
+                               let types = get_types (type_ids) in
+                               (f, types, t0)
+
