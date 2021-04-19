@@ -37,8 +37,11 @@ let rec check_exp (exp, vtable, ftable) =
     else 
       Error.error (Location.loc exp) "debug if"
       t2
+  | (_, Absyn.LetExp (id, id_exp, in_exp)) -> 
+    let t1 = check_exp(id_exp, vtable, ftable) in
+    let vtable' = Symbol.enter id t1 vtable in
+      check_exp (in_exp, vtable', ftable)
   | (_, Absyn.CallExp (x, y)) -> Absyn.Int
-  | (_, Absyn.LetExp (x, y, z)) -> Absyn.Int
   
 
 
