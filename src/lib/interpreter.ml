@@ -75,9 +75,29 @@ and cmp list1 list2 =
   | _, [] -> false
   | [], _ -> false
 
-let get_type_id (type', id) =
+(* type checking a function declaration *)
+let rec check_fun ((typeid, typeids, exp), ftable) =
+  let (_, t0) = get_type_id (typeid) in
+  let vtable = check_type_ids (typeids, exp) in
+  let t1 = check_exp (exp, vtable, ftable) in
+  if t0 != t1
+    then Error.error (Location.loc exp) "debug check funs"
+
+
+and get_type_id (type', id) =
   match type' with
   | Absyn.Int -> (id, Absyn.Int)
   | Absyn.Bool -> (id, Absyn.Bool)
-(* let interpreter (_, y) = 
+
+and check_type_ids (typeids, exp) =
+  match typeids with
+  | [typeid] -> let (x, t) = get_type_id (typeid) in
+                Symbol.enter x t Symbol.empty
+  | typeid :: tail -> let (x, t) = get_type_id (typeid) in
+                      let vtable = check_type_ids (tail, exp) in
+                      match Symbol.look x vtable with
+                      | Some _ -> Error.error (Location.loc exp) "verifiy this exp <<-"
+                      | None -> Symbol.enter x t vtable
+
+  (* let interpreter (_, y) = 
   call_fun y *)

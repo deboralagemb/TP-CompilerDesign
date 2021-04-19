@@ -35,12 +35,3 @@ and lexp = exp loc
 
 and lfundec = fundec loc
   [@@deriving show]
-
-let rec cmp list1 list2 =
-  match (list1, list2) with
-  | [a], [b] -> a == b
-  | (a :: tail1), (b :: tail2) ->
-      a == b && cmp tail1 tail2
-  | [], [] -> true
-  | _, [] -> false
-  | [], _ -> false
