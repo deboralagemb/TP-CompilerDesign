@@ -40,7 +40,7 @@ let main () =
       print_endline (Tree.string_of_tree tree);
       print_endline "Semantic analysis tree:";
       print_endline "============================================================";
-      Interpreter.interpreter ast;
+      Interpreter.check_program(ast);
 
   with
   | Error.Error (loc, msg) ->
