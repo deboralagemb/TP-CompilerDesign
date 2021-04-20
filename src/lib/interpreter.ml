@@ -1,7 +1,4 @@
 (* interpreter.ml *)
-
-open Absyn
-
 (* type checking of expressions *)
 (* here im waiting lexp -> already has location*)
 let rec check_exp(exp, vtable, ftable) =
@@ -76,12 +73,12 @@ and cmp list1 list2 =
 
 (* type checking a function declaration *)
 (* checkfun ( fun, table ) -> with loc *)
-let rec check_fun((typeid, typeids, exp), ftable) =
+let rec check_fun((typeid, typeids, exp, loc), ftable) =
   let (_, t0) = get_type_id(typeid) in
   let vtable = check_type_ids(typeids) in
   let t1 = check_exp(exp, vtable, ftable) in
   if t0 != t1
-    then Error.error (Location.loc exp) "debug check funs"
+    then Error.error loc "debug check funs"
 
 (* not loc *)
 and get_type_id(type', id) =
@@ -119,7 +116,7 @@ let rec get_types(type_ids) =
 
 let get_fun(fun') =
   match fun' with
-  | (typeId, type_ids, _) -> let (f, t0) = get_type_id (typeId) in
+  | (typeId, type_ids, _, loc) -> let (f, t0) = get_type_id (typeId) in
                              let types = get_types (type_ids) in
                              (f, types, t0)
 
