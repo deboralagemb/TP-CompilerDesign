@@ -1,5 +1,6 @@
 (* interpreter.ml *)
-(* type checking of expressions *)
+(* type checking of expressions 
+   code according to page 119 of Introduction to Compiler Design*)
 (* here im waiting lexp -> already has location*)
 let rec check_exp(exp, vtable, ftable) =
   match exp with
@@ -55,7 +56,7 @@ let rec check_exp(exp, vtable, ftable) =
       let new_vtable = Symbol.enter id t1 vtable in
         check_exp(in_exp, new_vtable, ftable)
   
-(* nao tem loc *)
+(* not loc *)
 and check_exps(exps, vtable, ftable) =
   match exps with
   | [exp] -> [check_exp(exp, vtable, ftable)]
@@ -71,9 +72,10 @@ and cmp list1 list2 =
   | (a :: tail1), (b :: tail2) -> a == b && cmp tail1 tail2
 
 
-(* type checking a function declaration *)
+(* type checking a function declaration 
+   code according to page 121 of Introduction to Compiler Design*)
 (* checkfun ( fun, table ) -> with loc *)
-let rec check_fun((typeid, typeids, exp, loc), ftable) =
+let rec check_fun((loc, typeid, typeids, exp), ftable) =
   let (_, t0) = get_type_id(typeid) in
   let vtable = check_type_ids(typeids) in
   let t1 = check_exp(exp, vtable, ftable) in
@@ -99,7 +101,8 @@ and check_type_ids(typeids) =
                       | None -> Symbol.enter x t vtable
 
 
-(* type checking a program *)
+(* type checking a program
+   code according to page 122 of Introduction to Compiler Design *)
 (* not loc *)
 let rec check_funs(funs, ftable) =
   match funs with
@@ -116,8 +119,8 @@ let rec get_types(type_ids) =
 
 let get_fun(fun') =
   match fun' with
-  | (typeId, type_ids, _, loc) -> let (f, t0) = get_type_id (typeId) in
-                             let types = get_types (type_ids) in
+  | (loc, typeId, type_ids, _) -> let (f, t0) = get_type_id(typeId) in
+                             let types = get_types(type_ids) in
                              (f, types, t0)
 
 let rec get_funs(funs) =

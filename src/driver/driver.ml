@@ -41,7 +41,16 @@ let main () =
       print_endline "Semantic analysis tree:";
       print_endline "============================================================";
       Interpreter.check_program(ast);
-
+      (*  
+      error reported:
+      This expression has type Absyn.program = Absyn.lfundec list
+        but an expression was expected of type
+          (Location.t * (Absyn.type_ * Symbol.symbol) * (Absyn.type_ * Symbol.symbol) list * Absyn.lexp) list
+      Type Absyn.lfundec = Location.t * Absyn.fundec is not compatible with type
+        Location.t * (Absyn.type_ * Symbol.symbol) * (Absyn.type_ * Symbol.symbol) list * Absyn.lexp
+      -- which is the same thing?!
+      -- couldn't get program to work
+      *)
   with
   | Error.Error (loc, msg) ->
      Format.printf "%a error: %s\n" Location.pp_location loc msg;
